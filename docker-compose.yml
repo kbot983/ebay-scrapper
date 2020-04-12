@@ -1,9 +1,9 @@
 version: '3.6'
 services:
-        python: 
-            build: .
-            volumes:
-                - ./ ./
+        # python: 
+        #     build: .
+        #     volumes:
+        #         - ./ ./
         adminer:
             image: adminer
             ports: 
@@ -15,3 +15,9 @@ services:
                 - ./init-sql:/docker-entrypoint-initdb.d
             environment:
                 MYSQL_ROOT_PASSWORD: kbot
+        php:
+            build: php-apache-mysqli
+            ports:
+                - 8888:80
+            volumes:
+                - ./html:/var/www/html/
