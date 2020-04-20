@@ -61,19 +61,29 @@
     </head>
   
     <body background="ecommerce.jpg">
+        <?php   
+            if(isset($_SESSION['userid'])){
+                ?>
+                <script type="text/javascript">
+                    alert("Login successful");
+                    window.location.replace("main.php");
+                </script>
+                <?php
+            }
+        ?>
         <div class="container">
         <div class="row">
             <form class="col s12" action="login-verify.php" method="post">
             
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="email" type="email" class="validate" required>
+                    <input id="email" type="email" class="validate" required name="email">
                     <label for="email">Email</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                <input id="password" type="password" class="validate" minlength="6" required>
+                <input id="password" type="password" class="validate" minlength="6" required name="password">
                 <label for="password">Password</label>
                 </div>
             </div>

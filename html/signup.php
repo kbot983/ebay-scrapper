@@ -1,5 +1,22 @@
 <html>
     <head>
+      <?php
+        if(isset($_POST['first_name'])){
+          include 'conn.php';
+          $name = $_POST['first_name']." ".$_POST['last_name'];
+          $email = $_POST['email'];
+          $password = $_POST['password'];
+          $gender = $_POST['gender'];
+
+          $password = password_hash($password, PASSWORD_DEFAULT);
+          var_dump($password);
+          $sql = $conn->prepare("INSERT INTO `user_info` (`email`, `name`, `password`, `gender`) VALUES (?, ?, ?, ?)");
+          $sql->bind_param('sssi', $email, $name, $password, $gender);
+          $sql->execute();
+          $sql->close();
+          $conn->close();
+        } 
+      ?>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
@@ -57,49 +74,55 @@
                 align-items: center;
                 height: 100vh;
             }
+            .col.s6 > .btn {
+              width: 100%;
+            }
         </style>
     </head>
   
     <body background="ecommerce.jpg">
     <div class="container">
 <div class="row">
-    <form class="col s12" id="reg-form">
+    <form class="col s12" method="post" action="signup.php" id="reg-form">
       <div class="row">
         <div class="input-field col s6">
-          <input id="first_name" type="text" class="validate" required>
+          <input id="first_name" type="text" class="validate" required name="first_name">
           <label for="first_name">First Name</label>
         </div>
         <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate" required>
+          <input id="last_name" type="text" class="validate" required name="last_name">
           <label for="last_name">Last Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate" required>
+          <input id="email" type="email" class="validate" required name="email">
           <label for="email">Email</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="password" type="password" class="validate" minlength="6" required>
+          <input id="password" type="password" class="validate" minlength="6" required name="password">
           <label for="password">Password</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <div class="gender-male">
-            <input class="with-gap" name="gender" type="radio" id="male" required />
-            <label for="male">Male</label>
-          </div>
-          <div class="gender-female">
-            <input class="with-gap" name="gender" type="radio" id="female" required />
-            <label for="female">Female</label>
-          </div>
+        <select required name="gender" id="gender">
+          <option value="">Choose your option</option>
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+          <option value="3">Other</option>
+        </select>
+        <label>Gender</label>
+          <!-- <div class="gender-other">
+            <input class="with-gap" name="gender" type="radio" id="other" required />
+            <label for="female">Other</label>
+          </div> -->
         </div>
 
         <div class="input-field col s6">
-          <button class="green btn btn-large btn-register waves-effect waves-light" type="submit" name="action">Register
+          <button class="green btn btn-large btn-register waves-effect waves-light" id="submit" type="submit" name="submit">Register
             <i class="material-icons right">done</i>
           </button>
         </div>
@@ -110,5 +133,10 @@
 </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            $('select').material_select();
+          });
+        </script>
       </body>
 </html>
