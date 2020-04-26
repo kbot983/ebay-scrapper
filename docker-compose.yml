@@ -18,8 +18,10 @@ services:
             image: adminer
             ports: 
                 - 8080:8080
-        # python: 
-        #     build: py
-        #     volumes: 
-        #         - ./py:/py
+        python: 
+            build: py
+            ports:
+                - 5000:5000
+            volumes: 
+                - ./py:/py
         

@@ -55,10 +55,11 @@
                         <ul class="collapsible popout" data-collapsible="accordion">
                             <?php 
                             while($row = $result->fetch_assoc()){
+                                $prod_title = $row['prod_title'] ?? "Your product is parsed by our servers it will soon be updated";
                             ?>
                                 <li>
-                                    <div class="collapsible-header"><i class="material-icons">show_chart</i><?php echo $row['prod_title']; ?></div>
-                                    <div class="collapsible-body white"><span>Price: <?php echo $row['prod_price']; ?><br/>Product Link: <a href="<?php echo $row['prod_url'];?>"><?php echo $row['prod_url']; ?></a></span></div>
+                                    <div class="collapsible-header"><i class="material-icons">show_chart</i><?php echo $prod_title; ?></div>
+                                    <div class="collapsible-body white"><span>Last updated price: <?php echo $row['prod_price']; ?><br/>Product Link: <a href="<?php echo $row['prod_url'];?>"><?php echo $row['prod_url']; ?></a></span></div>
                                 </li>
                             <?php
                             }
@@ -76,7 +77,28 @@
                     }
                     ?>
                 </div>
-                <div id="test2" class="col s12">Test 2</div>
+                <div id="test2" class="col s12">
+                    
+                    <div class="row white">
+                        <form class="col s12" action="add-items.php" method="post">
+                        
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="url" type="url" class="validate" required name="url" placeholder="https://ebay.com/product_info">
+                                <label for="email">Enter Ebay URL</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                            <button class="green btn btn-large btn-register waves-effect waves-light" type="submit" name="action">Add item
+                                <i class="material-icons right">done</i>
+                            </button>
+                            </div>
+                        </div>
+                        </form>
+                    
+                    </div>
+                </div>
             </div>
         </div>
         <!--Import jQuery before materialize.js-->
