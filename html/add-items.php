@@ -14,7 +14,12 @@
         $row = $result->fetch_assoc();
         $insert_relation_query->bind_param('ii', $user_id, $row['prod_id']);
         $insert_relation_query->execute();
-        echo "Inside if";
+        ?>
+        <script type="text/javascript">
+            alert("Item added successfuly");
+            window.location.href = "main.php";
+        </script>
+        <?php
     } else {
         $sql = $conn->prepare("INSERT INTO `prod_info` (`prod_title`, `prod_price`, `prod_url`) VALUES (NULL, NULL, ?)");
         $sql->bind_param('s', $url);

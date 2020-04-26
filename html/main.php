@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php session_start();
+    if (!isset($_SESSION['userid']))
+    {
+        header("Location: index.php");
+        exit;
+    }
+?>
 <html>
     <head>
         <?php
@@ -33,7 +39,7 @@
                 <a href="main.php" class="brand-logo" style="margin-left:10px">Ebay Price Tracker</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href=""></a></li>
+                    <li><a href="logout.php">Logout</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
                     <li><a href=""></a></li>
@@ -59,7 +65,14 @@
                             ?>
                                 <li>
                                     <div class="collapsible-header"><i class="material-icons">show_chart</i><?php echo $prod_title; ?></div>
-                                    <div class="collapsible-body white"><span>Last updated price: <?php echo $row['prod_price']; ?><br/>Product Link: <a href="<?php echo $row['prod_url'];?>"><?php echo $row['prod_url']; ?></a></span></div>
+                                    <div class="collapsible-body white">
+                                        <div class="row">
+                                        <span>Last updated price: <?php echo $row['prod_price']; ?><br/>Product Link: <a href="<?php echo $row['prod_url'];?>"><?php echo $row['prod_url']; ?></a></span>
+                                        </div>
+                                        <div class="row">
+                                        <button class="red btn del-btn" id="<?php echo $row['prod_id']?>">Delete Product</button>
+                                        </div>
+                                    </div>
                                 </li>
                             <?php
                             }
@@ -72,7 +85,7 @@
                         <center><div class="white"><b>
                             Looks like you have dont have any items for tracking <br/>
                             Try adding item from next tab 
-                        </b></div</center>
+                        </b></div></center>
                         <?php
                     }
                     ?>
@@ -110,6 +123,14 @@
                 // $('ul.tabs').tabs({
                 //     'swipeable': true
                 // });
+                $(".del-btn").click(function(){
+                    prod_id = this.id;
+                    $.ajax({
+                        url: "delete-items.php?prod_id="+prod_id,
+                    }).done(function() {
+                        window.location.replace("main.php");
+                    });
+                });
             });
         </script>
     </body>

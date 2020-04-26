@@ -1,3 +1,15 @@
+<?php   
+    session_start();
+    if(isset($_SESSION['userid'])){
+        ?>
+        <script type="text/javascript">
+            alert("Login successful");
+            window.location.replace("main.php");
+        </script>
+        <?php
+        exit;
+    }
+?>
 <html>
     <head>
         <!--Import Google Icon Font-->
@@ -61,16 +73,6 @@
     </head>
   
     <body background="ecommerce.jpg">
-        <?php   
-            if(isset($_SESSION['userid'])){
-                ?>
-                <script type="text/javascript">
-                    alert("Login successful");
-                    window.location.replace("main.php");
-                </script>
-                <?php
-            }
-        ?>
         <div class="container">
         <div class="row">
             <form class="col s12" action="login-verify.php" method="post">
