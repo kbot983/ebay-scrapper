@@ -23,6 +23,11 @@
 
         $insert_relation_query->bind_param('ii', $user_id, $prod_id);
         $insert_relation_query->execute();
-        echo "Success";
+        ?>
+        <script type="text/javascript">
+            alert("Item added successfuly");
+            window.location.href = "main.php";
+        </script>
+        <?php
     }
 ?>

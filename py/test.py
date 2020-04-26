@@ -19,6 +19,7 @@ def getebaydata():
     
     price = soup.find('span', attrs = {'id':'prcIsum'}) 
     price = price.text[4:]
+    price = float(price.replace(',', ''))
     title = URL.split("/", 8)[4]
 
     # print("Item title " + title +  "\nItem Price " + price.text)

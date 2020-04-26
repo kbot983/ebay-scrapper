@@ -84,7 +84,7 @@
                         
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="url" type="url" class="validate" required name="url" placeholder="https://ebay.com/product_info">
+                                <input id="url" type="url" class="validate" required name="url" placeholder="https://ebay.com/itm/product_info">
                                 <label for="email">Enter Ebay URL</label>
                             </div>
                         </div>

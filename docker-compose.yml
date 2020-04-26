@@ -24,4 +24,10 @@ services:
                 - 5000:5000
             volumes: 
                 - ./py:/py
+        mailhog:
+            image: mailhog/mailhog:v1.0.0
+            ports:
+                - "1025:1025"
+                - "8025:8025"
+
         
