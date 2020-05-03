@@ -1,6 +1,5 @@
 FROM python
 ADD app.py /
-ADD test.py /
 COPY requirements.txt ./
 ENV TZ 'America/New_York'
 RUN pip install --no-cache-dir -r requirements.txt &&\
@@ -12,4 +11,4 @@ RUN pip install --no-cache-dir -r requirements.txt &&\
     apt-get clean && \
     date
 # CMD ["python", "./app.py"] 
-CMD ["python","test.py"]
+CMD ["python","app.py"]

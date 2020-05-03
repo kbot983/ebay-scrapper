@@ -1,34 +1,35 @@
-#Python program to scrape website  
-#and save quotes from website 
-import requests 
-from bs4 import BeautifulSoup 
-import csv
+from flask import Flask, request, jsonify
 import mysql.connector
+from bs4 import BeautifulSoup
+import requests as r 
 
-mydb = mysql.connector.connect(
-  host="db",
-  user="root",
-  passwd="it635"
-)
+app = Flask(__name__)
 
-print(mydb)
-def scrapper():
-    URL = "https://www.ebay.com/itm/Superdry-Mens-Surplus-Goods-Shadow-Bomber-Jacket/323970731372?hash=item4b6e290d6c%3Am%3AmBBzvdspWQK51inPy7CHqjg&_trkparms=%2526rpp_cid%253D5d76b855c9f83175369f6d2f&var=513012879646"
-    r = requests.get(URL) 
+@app.route('/')
+def index():
+    return 'Heelo World!'
+
+@app.route("/getdata", methods=["POST"])
+def getebaydata():
+    input_json = request.get_json(force=True) 
+    URL = input_json['url']
+    resp = r.get(URL) 
     
-    soup = BeautifulSoup(r.content, 'html5lib') 
-    
-    quotes=[]  # a list to store quotes 
+    soup = BeautifulSoup(resp.content, 'html5lib') 
     
     price = soup.find('span', attrs = {'id':'prcIsum'}) 
+    price = price.text[4:]
+    price = float(price.replace(',', ''))
     title = URL.split("/", 8)[4]
 
-    print("Item title " + title +  "\nItem Price " + price.text)  
-    # filename = 'inspirational_quotes.csv'
-    # with open(filename, 'wb') as f: 
-    #     w = csv.DictWriter(f,['theme','url','img','lines','author']) 
-    #     w.writeheader() 
-    #     for quote in quotes: 
-    #         w.writerow(quote) 
+    # print("Item title " + title +  "\nItem Price " + price.text)
+    output_json = {"item-title": title, "item-price": price}  
+    # result = "{'test': 'success'}"
+    return jsonify(output_json)
 
-scrapper()
+
+def _test(argument):
+    return "TEST: %s" % argument
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
