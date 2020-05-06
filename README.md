@@ -19,6 +19,7 @@
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
 - [Built Using](#built_using)
+- [Updates](#updates)
 - [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
@@ -39,8 +40,8 @@ You will need following installed on your system to run this project.
 1. **Git**<br/>
     It is only needed to download your project from git. If not installed you can directly download project from Github.
 
-2. **dos2unix package**<br/>
-    It is requierd to change the line formating for Windows users because Github automatically converts files into `CRLF` format when you pull it. This comes with Git bash if you have it installed.
+2. ~~**dos2unix package**<br/>~~
+    ~~It is requierd to change the line formating for Windows users because Github automatically converts files into `CRLF` format when you pull it. This comes with Git bash if you have it installed.~~
 
 3. **Docker Desktop or docker bash**<br/>
     Docker provides the application environment and downloads require package to run everything on your system. Docker needs Windows Professional or Windows Education to install. Windows home users can use [Docker toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/).
@@ -117,10 +118,9 @@ If you see *[docker-compose.yml](https://github.com/kbot983/ebay-scrapper/blob/m
 Since application environment is developed by docker and automated scripts. There is only little to do before you can start the project running. 
 1. Downloading files fromn git
 ```shell
-git pull https://github.com/kbot983/ebay-scrapper.git
+git clone https://github.com/kbot983/ebay-scrapper.git
 ```
-2. Converting cron file to `LF` format for Linux container to understand. Cron fails silently if this step is not done and in turn entire web scraping fails since prices are not updated.
-
+2.  ~~Converting cron file to `LF` format for Linux container to understand. Cron fails silently if this step is not done and in turn entire web scraping fails since prices are not updated.~~
 ```shell
 dos2unix cron/hello-cron 
 ```
@@ -145,6 +145,10 @@ All services can be accessed at following url:
 - [MySQL](https://www.mysql.com/) - Database
 - [PHP](https://www.php.net/) - Web Framework
 - [Python](https://www.python.org/) - Web Scrapper
+
+## 🆕 Updates <a name = "updates"></a>
+
+- `dos2unix` is now not needed as dependency. I change file formatting inside cron service before enabling `cronjob`.
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
