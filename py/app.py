@@ -17,7 +17,9 @@ def getebaydata():
     
     soup = BeautifulSoup(resp.content, 'html5lib') 
     
-    price = soup.find('span', attrs = {'id':'prcIsum'}) 
+    price = soup.find('span', attrs = {'id':'prcIsum'})
+    if price is None:
+        price = soup.find('span', attrs = {'id':'prcIsum_bidPrice'}) 
     price = price.text[4:]
     price = float(price.replace(',', ''))
     title = URL.split("/", 8)[4]

@@ -7,14 +7,16 @@
           $email = $_POST['email'];
           $password = $_POST['password'];
           $gender = $_POST['gender'];
-
           $password = password_hash($password, PASSWORD_DEFAULT);
-          var_dump($password);
           $sql = $conn->prepare("INSERT INTO `user_info` (`email`, `name`, `password`, `gender`) VALUES (?, ?, ?, ?)");
           $sql->bind_param('sssi', $email, $name, $password, $gender);
           $sql->execute();
           $sql->close();
           $conn->close();
+          echo '<script type="text/javascript">
+           window.location = "index.php"
+          </script>';
+          die();
         } 
       ?>
         <!--Import Google Icon Font-->
@@ -84,6 +86,7 @@
     <div class="container">
 <div class="row">
     <form class="col s12" method="post" action="signup.php" id="reg-form">
+      Sign Up
       <div class="row">
         <div class="input-field col s6">
           <input id="first_name" type="text" class="validate" required name="first_name">
